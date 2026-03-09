@@ -42,11 +42,6 @@ public class PunishmentManager implements ConfigReloadable {
         try {
             groups.clear();
 
-            // To support reloading
-            for (AbstractCheck check : player.checkManager.allChecks.values()) {
-                check.setEnabled(false);
-            }
-
             for (Object s : punish) {
                 LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) s;
 
@@ -72,7 +67,6 @@ public class PunishmentManager implements ConfigReloadable {
                                 excluded.add(check);
                             } else {
                                 checksList.add(check);
-                                check.setEnabled(true);
                             }
                         }
                     }

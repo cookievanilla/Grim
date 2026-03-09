@@ -1,6 +1,7 @@
 package ac.grim.grimac.events.packets;
 
 import ac.grim.grimac.checks.Check;
+import ac.grim.grimac.checks.CheckData;
 import ac.grim.grimac.checks.type.PacketCheck;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.worldborder.BorderExtent;
@@ -20,6 +21,7 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayWorldBor
 import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 
+@CheckData(name = "PacketWorldBorder")
 public class PacketWorldBorder extends Check implements PacketCheck {
     @Getter
     private double centerX;

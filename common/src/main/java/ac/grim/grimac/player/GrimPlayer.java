@@ -408,8 +408,12 @@ public class GrimPlayer implements GrimUser {
             // Transactions that we send don't count towards total limit
             if (viaPacketTracker != null) viaPacketTracker.setIntervalPackets(viaPacketTracker.getIntervalPackets() - 1);
 
-            if (skipped > 0 && System.currentTimeMillis() - joinTime > 5000)
-                checkManager.getCheck(TransactionOrder.class).flagAndAlert("skipped: " + skipped);
+            if (skipped > 0 && System.currentTimeMillis() - joinTime > 5000) {
+                Check transactionOrder = checkManager.getCheck(TransactionOrder.class);
+                if (transactionOrder.shouldProcess()) {
+                    transactionOrder.flagAndAlert("skipped: " + skipped);
+                }
+            }
 
             do {
                 data = transactionsSent.poll();

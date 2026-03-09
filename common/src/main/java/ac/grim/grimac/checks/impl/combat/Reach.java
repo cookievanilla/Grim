@@ -214,7 +214,10 @@ public class Reach extends Check implements PacketCheck {
                     if (reachEntity instanceof PacketEntitySizeable sizeable) {
                         added += ", size=" + sizeable.size;
                     }
-                    player.checkManager.getCheck(Hitboxes.class).flagAndAlert(result.verbose() + added);
+                    Check hitboxes = player.checkManager.getCheck(Hitboxes.class);
+                    if (hitboxes.shouldProcess()) {
+                        hitboxes.flagAndAlert(result.verbose() + added);
+                    }
                 }
             }
         }
