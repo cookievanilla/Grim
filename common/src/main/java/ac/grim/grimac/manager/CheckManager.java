@@ -2,6 +2,7 @@ package ac.grim.grimac.manager;
 
 import ac.grim.grimac.GrimAPI;
 import ac.grim.grimac.api.AbstractCheck;
+import ac.grim.grimac.checks.Check;
 import ac.grim.grimac.checks.impl.aim.AimDuplicateLook;
 import ac.grim.grimac.checks.impl.aim.AimModulo360;
 import ac.grim.grimac.checks.impl.aim.processor.AimProcessor;
@@ -412,9 +413,7 @@ public class CheckManager {
     }
 
     private boolean shouldProcess(AbstractCheck check) {
-        // Processors/helpers without a config name must always run.
-        // Actual checks can be globally disabled through checks.<ConfigName>.enabled
-        return check.getConfigName() == null || check.isEnabled();
+        return !(check instanceof Check grimCheck) || grimCheck.shouldProcess();
     }
 
     public ExplosionHandler getExplosionHandler() {

@@ -198,14 +198,12 @@ debug-pipeline-on-join: false
 # Enables experimental checks
 experimental-checks: false
 
-# Per-check toggles for all built-in checks.
+# Per-check toggles for user-facing checks.
 # Set any check to false to disable it completely.
 checks:
     AimDuplicateLook:
         enabled: true
     AimModulo360:
-        enabled: true
-    AimProcessor:
         enabled: true
     AirLiquidBreak:
         enabled: true
@@ -409,15 +407,11 @@ checks:
         enabled: true
     Post:
         enabled: true
-    PredictionRunner:
-        enabled: true
     Reach:
         enabled: true
     RotationBreak:
         enabled: true
     RotationPlace:
-        enabled: true
-    SetbackBlocker:
         enabled: true
     Simulation:
         enabled: true
@@ -454,8 +448,6 @@ checks:
     VehicleE:
         enabled: true
     VehicleF:
-        enabled: true
-    VehiclePredictionRunner:
         enabled: true
     VehicleTimer:
         enabled: true

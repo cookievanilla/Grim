@@ -32,6 +32,8 @@ public class Check extends GrimProcessor implements AbstractCheck {
     private String description;
 
     private boolean experimental;
+    private boolean configurable;
+    private boolean enabledByConfig;
     private @Setter boolean isEnabled;
 
     private boolean exemptPermission;
@@ -52,19 +54,26 @@ public class Check extends GrimProcessor implements AbstractCheck {
             this.setbackVL = checkData.setback();
             this.alternativeName = checkData.alternativeName();
             this.experimental = checkData.experimental();
+            this.configurable = checkData.configurable();
             this.description = checkData.description();
             this.displayName = this.checkName;
+        } else {
+            this.configurable = false;
         }
 
         reload();
     }
 
     public boolean shouldModifyPackets() {
-        return isEnabled
+        return shouldProcess()
                 && !player.disableGrim
                 && !player.noModifyPacketPermission
                 && !noModifyPacketPermission
                 && !exemptPermission;
+    }
+
+    public boolean shouldProcess() {
+        return !configurable || enabledByConfig;
     }
 
     public final void updatePermissions() {
@@ -92,7 +101,7 @@ public class Check extends GrimProcessor implements AbstractCheck {
     }
 
     public final boolean flag(String verbose) {
-        if (configName != null && !isEnabled) {
+        if (!shouldProcess()) {
             return false;
         }
 
@@ -139,9 +148,8 @@ public class Check extends GrimProcessor implements AbstractCheck {
 
     @Override
     public final void reload(ConfigManager configuration) {
-        isEnabled = configName == null || configuration.getBooleanElse(configName + ".enabled",
-                configuration.getBooleanElse("checks." + configName + ".enabled",
-                        configuration.getBooleanElse("checks." + configName.toLowerCase() + ".enabled", true)));
+        enabledByConfig = !configurable || configName == null || configuration.getBooleanElse("checks." + configName + ".enabled", true);
+        isEnabled = enabledByConfig;
         decay = configuration.getDoubleElse(configName + ".decay", decay);
         setbackVL = configuration.getDoubleElse(configName + ".setbackvl", setbackVL);
         displayName = configuration.getStringElse(configName + ".displayname", checkName);
