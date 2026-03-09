@@ -148,12 +148,18 @@ public class Check extends GrimProcessor implements AbstractCheck {
 
     @Override
     public final void reload(ConfigManager configuration) {
-        enabledByConfig = !configurable || configName == null || configuration.getBooleanElse("checks." + configName + ".enabled", true);
+        final String checkBase = configName == null ? null : "checks." + configName;
+
+        enabledByConfig = !configurable || checkBase == null || configuration.getBooleanElse(checkBase + ".enabled", true);
         isEnabled = enabledByConfig;
-        decay = configuration.getDoubleElse(configName + ".decay", decay);
-        setbackVL = configuration.getDoubleElse(configName + ".setbackvl", setbackVL);
-        displayName = configuration.getStringElse(configName + ".displayname", checkName);
-        description = configuration.getStringElse(configName + ".description", description);
+
+        if (checkBase != null) {
+            // Prefer canonical checks.<configName> paths, while keeping legacy keys as fallback for compatibility.
+            decay = configuration.getDoubleElse(checkBase + ".decay", configuration.getDoubleElse(configName + ".decay", decay));
+            setbackVL = configuration.getDoubleElse(checkBase + ".setbackvl", configuration.getDoubleElse(configName + ".setbackvl", setbackVL));
+            displayName = configuration.getStringElse(checkBase + ".displayname", configuration.getStringElse(configName + ".displayname", checkName));
+            description = configuration.getStringElse(checkBase + ".description", configuration.getStringElse(configName + ".description", description));
+        }
 
         if (setbackVL == -1) setbackVL = Double.MAX_VALUE;
         onReload(configuration);

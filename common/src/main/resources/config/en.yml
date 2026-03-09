@@ -200,6 +200,7 @@ experimental-checks: false
 
 # Per-check toggles for user-facing checks.
 # Set any check to false to disable it completely.
+# Internal pipeline/processors are intentionally not listed here.
 checks:
     AimDuplicateLook:
         enabled: true
