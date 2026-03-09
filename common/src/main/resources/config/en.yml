@@ -201,8 +201,10 @@ experimental-checks: false
 # Per-check toggles for all registered checks/modules.
 # Advanced/internal modules are included; disable with care.
 checks:
+    # shared state/managers
     ActionManager:
         enabled: true
+    # user-facing checks: aim/combat/movement/packet
     AimDuplicateLook:
         enabled: true
     AimModulo360:
@@ -273,8 +275,10 @@ checks:
         enabled: true
     ChatD:
         enabled: true
+    # advanced/internal modules
     ClientBrand:
         enabled: true
+    # state/latency components
     CompensatedCameraEntity:
         enabled: true
     CompensatedCooldown:

@@ -329,7 +329,10 @@ public class SetbackTeleportUtil extends Check implements PostPredictionCheck {
                 break;
             } else if (player.lastTransactionReceived.get() > teleportPos.getTransaction()) {
                 // The player ignored the teleport (and this teleport matters), resynchronize
-                player.checkManager.getCheck(BadPacketsN.class).flagAndAlert();
+                Check badPacketsN = player.checkManager.getCheck(BadPacketsN.class);
+                if (badPacketsN.shouldProcess()) {
+                    badPacketsN.flagAndAlert();
+                }
                 pendingTeleports.poll();
                 requiredSetBack.setPlugin(false);
                 if (pendingTeleports.isEmpty()) {

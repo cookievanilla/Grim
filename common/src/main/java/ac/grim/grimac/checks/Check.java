@@ -9,7 +9,6 @@ import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.packettype.PacketTypeCommon;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import lombok.Getter;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -34,7 +33,7 @@ public class Check extends GrimProcessor implements AbstractCheck {
     private boolean experimental;
     private boolean configurable;
     private boolean enabledByConfig;
-    private @Setter boolean isEnabled;
+    private boolean isEnabled;
 
     private boolean exemptPermission;
     private boolean noSetbackPermission;
@@ -74,6 +73,11 @@ public class Check extends GrimProcessor implements AbstractCheck {
 
     public boolean shouldProcess() {
         return !configurable || enabledByConfig;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.isEnabled = enabled;
+        this.enabledByConfig = enabled;
     }
 
     public final void updatePermissions() {

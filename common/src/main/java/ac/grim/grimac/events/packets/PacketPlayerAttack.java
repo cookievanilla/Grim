@@ -37,6 +37,9 @@ public class PacketPlayerAttack extends PacketListenerAbstract {
                     // the list of entities used to raytrace isn't the same as the list of entities in the world in pre-1.14 (wtf mojang)
                     && (!player.compensatedEntities.entitiesRemovedThisTick.contains(interact.getEntityId()) || player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_14))) {
                 final BadPacketsW badPacketsW = player.checkManager.getCheck(BadPacketsW.class);
+                if (!badPacketsW.shouldProcess()) {
+                    return;
+                }
                 if (badPacketsW.flagAndAlert("entityId=" + interact.getEntityId()) && badPacketsW.shouldModifyPackets()) {
                     event.setCancelled(true);
                     player.onPacketCancel();
