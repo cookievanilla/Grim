@@ -198,9 +198,11 @@ debug-pipeline-on-join: false
 # Enables experimental checks
 experimental-checks: false
 
-# Per-check toggles for all configurable checks (including advanced/internal modules).
-# Disable advanced/internal modules only if you understand Grim's prediction pipeline.
+# Per-check toggles for all registered checks/modules.
+# Advanced/internal modules are included; disable with care.
 checks:
+    ActionManager:
+        enabled: true
     AimDuplicateLook:
         enabled: true
     AimModulo360:
@@ -263,8 +265,6 @@ checks:
         enabled: true
     BadPacketsZ:
         enabled: true
-    Baritone:
-        enabled: true
     ChatA:
         enabled: true
     ChatB:
@@ -274,6 +274,14 @@ checks:
     ChatD:
         enabled: true
     ClientBrand:
+        enabled: true
+    CompensatedCameraEntity:
+        enabled: true
+    CompensatedCooldown:
+        enabled: true
+    CompensatedFireworks:
+        enabled: true
+    CompensatedInventory:
         enabled: true
     CrashA:
         enabled: true
@@ -329,7 +337,7 @@ checks:
         enabled: true
     FastBreak:
         enabled: true
-    FlightA:
+    GhostBlockDetector:
         enabled: true
     GhostBlockMitigation:
         enabled: true
@@ -344,6 +352,8 @@ checks:
     InvalidPlaceB:
         enabled: true
     Knockback:
+        enabled: true
+    LastInstanceManager:
         enabled: true
     MultiActionsA:
         enabled: true
@@ -374,6 +384,10 @@ checks:
     NoSlow:
         enabled: true
     NoSwingBreak:
+        enabled: true
+    PacketChangeGameState:
+        enabled: true
+    PacketEntityReplication:
         enabled: true
     PacketOrderA:
         enabled: true
@@ -409,6 +423,10 @@ checks:
         enabled: true
     PacketOrderProcessor:
         enabled: true
+    PacketPlayerAbilities:
+        enabled: true
+    PacketWorldBorder:
+        enabled: true
     Phase:
         enabled: true
     PositionBreakA:
@@ -429,7 +447,11 @@ checks:
         enabled: true
     SetbackBlocker:
         enabled: true
+    SetbackTeleportUtil:
+        enabled: true
     Simulation:
+        enabled: true
+    SneakingEstimator:
         enabled: true
     SprintA:
         enabled: true
@@ -444,6 +466,10 @@ checks:
     SprintF:
         enabled: true
     SprintG:
+        enabled: true
+    SuperDebug:
+        enabled: true
+    TeamHandler:
         enabled: true
     TickTimer:
         enabled: true
