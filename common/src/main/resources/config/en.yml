@@ -198,13 +198,14 @@ debug-pipeline-on-join: false
 # Enables experimental checks
 experimental-checks: false
 
-# Per-check toggles for user-facing checks.
-# Set any check to false to disable it completely.
-# Internal pipeline/processors are intentionally not listed here.
+# Per-check toggles for all configurable checks (including advanced/internal modules).
+# Disable advanced/internal modules only if you understand Grim's prediction pipeline.
 checks:
     AimDuplicateLook:
         enabled: true
     AimModulo360:
+        enabled: true
+    AimProcessor:
         enabled: true
     AirLiquidBreak:
         enabled: true
@@ -272,6 +273,8 @@ checks:
         enabled: true
     ChatD:
         enabled: true
+    ClientBrand:
+        enabled: true
     CrashA:
         enabled: true
     CrashB:
@@ -289,6 +292,8 @@ checks:
     CrashH:
         enabled: true
     CrashI:
+        enabled: true
+    DebugHandler:
         enabled: true
     DuplicateRotPlace:
         enabled: true
@@ -323,6 +328,10 @@ checks:
     FarPlace:
         enabled: true
     FastBreak:
+        enabled: true
+    FlightA:
+        enabled: true
+    GhostBlockMitigation:
         enabled: true
     GroundSpoof:
         enabled: true
@@ -398,6 +407,8 @@ checks:
         enabled: true
     PacketOrderP:
         enabled: true
+    PacketOrderProcessor:
+        enabled: true
     Phase:
         enabled: true
     PositionBreakA:
@@ -408,11 +419,15 @@ checks:
         enabled: true
     Post:
         enabled: true
+    PredictionRunner:
+        enabled: true
     Reach:
         enabled: true
     RotationBreak:
         enabled: true
     RotationPlace:
+        enabled: true
+    SetbackBlocker:
         enabled: true
     Simulation:
         enabled: true
@@ -449,6 +464,8 @@ checks:
     VehicleE:
         enabled: true
     VehicleF:
+        enabled: true
+    VehiclePredictionRunner:
         enabled: true
     VehicleTimer:
         enabled: true

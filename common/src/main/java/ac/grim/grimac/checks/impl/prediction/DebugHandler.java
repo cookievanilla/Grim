@@ -1,6 +1,7 @@
 package ac.grim.grimac.checks.impl.prediction;
 
 import ac.grim.grimac.GrimAPI;
+import ac.grim.grimac.checks.CheckData;
 import ac.grim.grimac.checks.debug.AbstractDebugHandler;
 import ac.grim.grimac.checks.type.PostPredictionCheck;
 import ac.grim.grimac.platform.api.sender.Sender;
@@ -16,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+@CheckData(name = "DebugHandler")
 public class DebugHandler extends AbstractDebugHandler implements PostPredictionCheck {
     private static final Component GRAY_ARROW = MiniMessage.miniMessage().deserialize("<gray>→0.03→</gray>");
     private static final Component P_PREFIX = MiniMessage.miniMessage().deserialize("<reset>P: </reset>");
