@@ -311,104 +311,110 @@ public class CheckManager {
 
     public void onPrePredictionReceivePacket(final PacketReceiveEvent packet) {
         for (PacketCheck check : prePredictionChecksValues) {
-            check.onPacketReceive(packet);
+            if (shouldProcess(check)) check.onPacketReceive(packet);
         }
     }
 
     public void onPacketReceive(final PacketReceiveEvent packet) {
         for (PacketCheck check : packetChecksValues) {
-            check.onPacketReceive(packet);
+            if (shouldProcess(check)) check.onPacketReceive(packet);
         }
         for (PostPredictionCheck check : postPredictionChecksValues) {
-            check.onPacketReceive(packet);
+            if (shouldProcess(check)) check.onPacketReceive(packet);
         }
         for (BlockPlaceCheck check : blockPlaceChecksValues) {
-            check.onPacketReceive(packet);
+            if (shouldProcess(check)) check.onPacketReceive(packet);
         }
         for (BlockBreakCheck check : blockBreakChecksValues) {
-            check.onPacketReceive(packet);
+            if (shouldProcess(check)) check.onPacketReceive(packet);
         }
     }
 
     public void onPacketSend(final PacketSendEvent packet) {
         for (PacketCheck check : prePredictionChecksValues) {
-            check.onPacketSend(packet);
+            if (shouldProcess(check)) check.onPacketSend(packet);
         }
         for (PacketCheck check : packetChecksValues) {
-            check.onPacketSend(packet);
+            if (shouldProcess(check)) check.onPacketSend(packet);
         }
         for (PostPredictionCheck check : postPredictionChecksValues) {
-            check.onPacketSend(packet);
+            if (shouldProcess(check)) check.onPacketSend(packet);
         }
         for (BlockPlaceCheck check : blockPlaceChecksValues) {
-            check.onPacketSend(packet);
+            if (shouldProcess(check)) check.onPacketSend(packet);
         }
         for (BlockBreakCheck check : blockBreakChecksValues) {
-            check.onPacketSend(packet);
+            if (shouldProcess(check)) check.onPacketSend(packet);
         }
     }
 
     public void onPositionUpdate(final PositionUpdate position) {
         for (PositionCheck check : positionChecksValues) {
-            check.onPositionUpdate(position);
+            if (shouldProcess(check)) check.onPositionUpdate(position);
         }
     }
 
     public void onRotationUpdate(final RotationUpdate rotation) {
         for (RotationCheck check : rotationChecksValues) {
-            check.process(rotation);
+            if (shouldProcess(check)) check.process(rotation);
         }
         for (BlockPlaceCheck check : blockPlaceChecksValues) {
-            check.process(rotation);
+            if (shouldProcess(check)) check.process(rotation);
         }
     }
 
     public void onVehiclePositionUpdate(final VehiclePositionUpdate update) {
         for (VehicleCheck check : vehicleChecksValues) {
-            check.process(update);
+            if (shouldProcess(check)) check.process(update);
         }
     }
 
     public void onPredictionFinish(final PredictionComplete complete) {
         for (PostPredictionCheck check : postPredictionChecksValues) {
-            check.onPredictionComplete(complete);
+            if (shouldProcess(check)) check.onPredictionComplete(complete);
         }
         for (BlockPlaceCheck check : blockPlaceChecksValues) {
-            check.onPredictionComplete(complete);
+            if (shouldProcess(check)) check.onPredictionComplete(complete);
         }
         for (BlockBreakCheck check : blockBreakChecksValues) {
-            check.onPredictionComplete(complete);
+            if (shouldProcess(check)) check.onPredictionComplete(complete);
         }
     }
 
     public void onBlockPlace(final BlockPlace place) {
         for (BlockPlaceCheck check : blockPlaceChecksValues) {
-            check.onBlockPlace(place);
+            if (shouldProcess(check)) check.onBlockPlace(place);
         }
     }
 
     public void onPostFlyingBlockPlace(final BlockPlace place) {
         for (BlockPlaceCheck check : blockPlaceChecksValues) {
-            check.onPostFlyingBlockPlace(place);
+            if (shouldProcess(check)) check.onPostFlyingBlockPlace(place);
         }
     }
 
     public void onBlockBreak(final BlockBreak blockBreak) {
         for (BlockBreakCheck check : blockBreakChecksValues) {
-            check.onBlockBreak(blockBreak);
+            if (shouldProcess(check)) check.onBlockBreak(blockBreak);
         }
         for (BlockPlaceCheck check : blockPlaceChecksValues) {
-            check.onBlockBreak(blockBreak);
+            if (shouldProcess(check)) check.onBlockBreak(blockBreak);
         }
     }
 
     public void onPostFlyingBlockBreak(final BlockBreak blockBreak) {
         for (BlockBreakCheck check : blockBreakChecksValues) {
-            check.onPostFlyingBlockBreak(blockBreak);
+            if (shouldProcess(check)) check.onPostFlyingBlockBreak(blockBreak);
         }
         for (BlockPlaceCheck check : blockPlaceChecksValues) {
-            check.onPostFlyingBlockBreak(blockBreak);
+            if (shouldProcess(check)) check.onPostFlyingBlockBreak(blockBreak);
         }
+    }
+
+    private boolean shouldProcess(AbstractCheck check) {
+        // Processors/helpers without a config name must always run.
+        // Actual checks can be globally disabled through checks.<ConfigName>.enabled
+        return check.getConfigName() == null || check.isEnabled();
     }
 
     public ExplosionHandler getExplosionHandler() {

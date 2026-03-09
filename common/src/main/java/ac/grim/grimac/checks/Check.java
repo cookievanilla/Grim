@@ -92,6 +92,10 @@ public class Check extends GrimProcessor implements AbstractCheck {
     }
 
     public final boolean flag(String verbose) {
+        if (configName != null && !isEnabled) {
+            return false;
+        }
+
         if (player.disableGrim || (experimental && !player.isExperimentalChecks()) || exemptPermission)
             return false; // Avoid calling event if disabled
 
@@ -135,6 +139,9 @@ public class Check extends GrimProcessor implements AbstractCheck {
 
     @Override
     public final void reload(ConfigManager configuration) {
+        isEnabled = configName == null || configuration.getBooleanElse(configName + ".enabled",
+                configuration.getBooleanElse("checks." + configName + ".enabled",
+                        configuration.getBooleanElse("checks." + configName.toLowerCase() + ".enabled", true)));
         decay = configuration.getDoubleElse(configName + ".decay", decay);
         setbackVL = configuration.getDoubleElse(configName + ".setbackvl", setbackVL);
         displayName = configuration.getStringElse(configName + ".displayname", checkName);
